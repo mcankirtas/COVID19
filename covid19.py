@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 13 02:31:46 2021
-
-@author: Mehmet Can
-"""
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -130,20 +123,16 @@ model.add(Dense(2, activation = "softmax"))
 
 
 from keras.utils.vis_utils import plot_model
-#from IPython.display import Image
-#PIL image görevinin görüyor ama module hatası veriyor
 plot_model(model, to_file="model.png", show_shapes= True)
-#Image.Image("model.png")
 
 
 # Define the optimizer
 optimizer = Adam(lr=0.001, beta_1=0.9, beta_2=0.999)
-#lr 1di
 
 # Compile the model
 model.compile(optimizer = optimizer , loss = "binary_crossentropy", metrics=["accuracy"])
 
-epochs = 300  # for better result increase the epochs
+epochs = 300  
 batch_size = 25
 
 
@@ -165,23 +154,11 @@ datagen.fit(X_train)
 
 #creating early stopping function
 from keras.callbacks import ModelCheckpoint, EarlyStopping, Callback
-"""
-import tensorflow as tf
 
-class new_callback(tf.keras.callbacks.Callback):
-    def epoch_end(self, epoch, logs={}): 
-        if(logs.get('val_loss')<logs.get("loss") and logs.get("loss")<0.16): # select the accuracy
-            print("\n !!! 0.125 val_loss, no further training !!!")
-            self.model.stop_training = True
-
-
-callbacks = new_callback()
-"""
 #start the process
 history = model.fit_generator(datagen.flow(X_train,Y_train, batch_size=batch_size),
                               epochs = epochs, validation_data = (X_val,Y_val), steps_per_epoch=X_train.shape[0] // batch_size)
                               
-""", callbacks=[callbacks])"""
 
 plt.figure(figsize = (10,5))
 plt.plot(history.history["val_loss"], color="b", label = "validation loss")
