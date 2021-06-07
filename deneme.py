@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Mar 30 01:24:12 2021
-
-@author: Mehmet Can
-"""
 import numpy as np
 from PIL import Image 
 import tensorflow as tf
